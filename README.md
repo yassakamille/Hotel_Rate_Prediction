@@ -4,32 +4,35 @@
 
 ## Hotel Rate Prediction Workflow
 
-```mermaid id="h7k2pm"
+```mermaid id="k8m2vx"
 flowchart TD
     subgraph group_prep["Data Preparation"]
         node_main["Training Script<br/>[main.py]"]
+        node_features["Feature Preparation<br/>[main.py]"]
         node_regression_class["Regression Class<br/>[regression.py]"]
-        node_feature_prep["Feature Preparation<br/>[main.py]"]
     end
 
-    subgraph group_models["Model Training"]
+    subgraph group_training["Model Training"]
         node_regression_training["Regression Training<br/>[main.py]"]
         node_classification_training["Classification Training<br/>[main.py]"]
     end
 
-    subgraph group_evaluation["Evaluation and Model Artifacts"]
+    subgraph group_evaluation["Evaluation"]
         node_evaluation["Model Evaluation<br/>[main.py]"]
-        node_linear_model["Linear Regression Model"]
-        node_lasso_model["Lasso Regression Model"]
-        node_ridge_model["Ridge Regression Model"]
-        node_logistic_model["Logistic Regression Model"]
-        node_tree_model["Decision Tree Model"]
     end
 
-    node_operator(("User"))
+    subgraph group_artifacts["Model Artifacts"]
+        node_linear_model["Linear Regression"]
+        node_lasso_model["Lasso Regression"]
+        node_ridge_model["Ridge Regression"]
+        node_logistic_model["Logistic Regression"]
+        node_tree_model["Decision Tree"]
+    end
 
-    node_operator -.->|"Runs pipeline"| node_main
-    node_main -->|"Prepares features"| node_feature_prep
+    node_user(("User"))
+
+    node_user -->|"Runs pipeline"| node_main
+    node_main -->|"Prepares features"| node_features
     node_main -->|"Trains regressors"| node_regression_training
     node_main -->|"Trains classifiers"| node_classification_training
     node_main -->|"Evaluates models"| node_evaluation
@@ -40,8 +43,8 @@ flowchart TD
     node_main -->|"Saves model"| node_tree_model
 
     click node_main "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
+    click node_features "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_regression_class "https://github.com/yassakamille/hotel_rate_prediction/blob/main/regression.py"
-    click node_feature_prep "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_regression_training "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_classification_training "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_evaluation "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
@@ -59,8 +62,10 @@ flowchart TD
     classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
     classDef toneTeal fill:#ccfbf1,stroke:#0f766e,stroke-width:1.5px,color:#134e4a
 
-    class node_main,node_regression_class,node_feature_prep,node_operator toneBlue
+    class node_main,node_features,node_regression_class,node_user toneBlue
     class node_regression_training,node_classification_training toneAmber
-    class node_evaluation,node_linear_model,node_lasso_model,node_ridge_model,node_logistic_model,node_tree_model toneMint
+    class node_evaluation toneMint
+    class node_linear_model,node_lasso_model,node_ridge_model,node_logistic_model,node_tree_model toneRose
 ```
+
 [![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/yassakamille/hotel_rate_prediction?utm_source=readme&utm_medium=badge)
