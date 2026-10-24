@@ -6,7 +6,7 @@
 
 ```mermaid id="k8m2vx"
 flowchart TD
-    subgraph group_prep["Data Preparation"]
+    subgraph group_prep["Data Preparation and Training"]
         node_main["Training Script<br/>[main.py]"]
         node_features["Feature Preparation<br/>[main.py]"]
     end
