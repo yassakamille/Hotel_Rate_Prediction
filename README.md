@@ -44,7 +44,6 @@ flowchart TD
 
     click node_main "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_features "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
-    click node_regression_class "https://github.com/yassakamille/hotel_rate_prediction/blob/main/regression.py"
     click node_regression_training "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_classification_training "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_evaluation "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
