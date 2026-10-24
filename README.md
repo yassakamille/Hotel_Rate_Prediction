@@ -9,7 +9,6 @@ flowchart TD
     subgraph group_prep["Data Preparation"]
         node_main["Training Script<br/>[main.py]"]
         node_features["Feature Preparation<br/>[main.py]"]
-        node_regression_class["Regression Class<br/>[regression.py]"]
     end
 
     subgraph group_training["Model Training"]
