@@ -8,6 +8,8 @@
 flowchart TD
     subgraph group_prep["Data Preparation and Training"]
         node_main["Training Script<br/>[main.py]"]
+        node_regression_csv[("Regression Dataset<br/>hotel-regression-dataset.csv")]
+        node_classification_csv[("Classification Dataset<br/>hotel-classification-dataset.csv")]
         node_features["Feature Preparation<br/>[main.py]"]
     end
 
@@ -26,20 +28,29 @@ flowchart TD
         node_ridge_model["Ridge Regression"]
         node_logistic_model["Logistic Regression"]
         node_tree_model["Decision Tree"]
+        node_forest_model["Random Forest"]
     end
 
     node_user(("User"))
 
     node_user -->|"Runs pipeline"| node_main
-    node_main -->|"Prepares features"| node_features
-    node_main -->|"Trains regressors"| node_regression_training
-    node_main -->|"Trains classifiers"| node_classification_training
-    node_main -->|"Evaluates models"| node_evaluation
-    node_main -->|"Saves model"| node_linear_model
-    node_main -->|"Saves model"| node_lasso_model
-    node_main -->|"Saves model"| node_ridge_model
-    node_main -->|"Saves model"| node_logistic_model
-    node_main -->|"Saves model"| node_tree_model
+    node_main -->|"Reads CSV"| node_regression_csv
+    node_main -->|"Reads CSV"| node_classification_csv
+    node_regression_csv --> node_features
+    node_classification_csv --> node_features
+
+    node_features --> node_regression_training
+    node_features --> node_classification_training
+
+    node_regression_training --> node_evaluation
+    node_classification_training --> node_evaluation
+
+    node_regression_training -->|"Saves model"| node_linear_model
+    node_regression_training -->|"Saves model"| node_lasso_model
+    node_regression_training -->|"Saves model"| node_ridge_model
+    node_classification_training -->|"Saves model"| node_logistic_model
+    node_classification_training -->|"Saves model"| node_tree_model
+    node_classification_training -->|"Saves model"| node_forest_model
 
     click node_main "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
     click node_features "https://github.com/yassakamille/hotel_rate_prediction/blob/main/main.py"
@@ -51,19 +62,19 @@ flowchart TD
     click node_ridge_model "https://github.com/yassakamille/hotel_rate_prediction/blob/main/ridge_regression.sav"
     click node_logistic_model "https://github.com/yassakamille/hotel_rate_prediction/blob/main/Logistic_Regression_classifier.sav"
     click node_tree_model "https://github.com/yassakamille/hotel_rate_prediction/blob/main/decision_tree_classifier.sav"
+    click node_forest_model "https://github.com/yassakamille/hotel_rate_prediction/blob/main/Random_Forest_classifier.sav"
 
     classDef toneNeutral fill:#f8fafc,stroke:#334155,stroke-width:1.5px,color:#0f172a
     classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
     classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
     classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
     classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
-    classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
-    classDef toneTeal fill:#ccfbf1,stroke:#0f766e,stroke-width:1.5px,color:#134e4a
 
-    class node_main,node_features,node_regression_class,node_user toneBlue
+    class node_main,node_features,node_user toneBlue
+    class node_regression_csv,node_classification_csv toneNeutral
     class node_regression_training,node_classification_training toneAmber
     class node_evaluation toneMint
-    class node_linear_model,node_lasso_model,node_ridge_model,node_logistic_model,node_tree_model toneRose
+    class node_linear_model,node_lasso_model,node_ridge_model,node_logistic_model,node_tree_model,node_forest_model toneRose
 ```
 
 [![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/yassakamille/hotel_rate_prediction?utm_source=readme&utm_medium=badge)
